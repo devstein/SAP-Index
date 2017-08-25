@@ -1,0 +1,17 @@
+<SP_DATA lastUpdatedTime="Tuesday, August 23, 2017">
+  <CHARACTERISTICS>
+    <constituents>1000</constituents>
+    <total_par_value>1,636,142.52</total_par_value>
+    <market_value_out>2442611000</market_value_out>
+    <par_weighted_coupon>5.8</par_weighted_coupon>
+    <weighted_avg_maturity>11.27</weighted_avg_maturity>
+    <par_weighted_price>105.6766</par_weighted_price>
+    <yield_to_maturity>1.92816</yield_to_maturity>
+    <yield_to_worst>1.92816</yield_to_worst>
+    <tax_eq_yield>1.92816</tax_eq_yield>
+    <oa_spread>65.706383</oa_spread>
+    <modified_duration>1.43993</modified_duration>
+    <effective_duration>1.442993</effective_duration>
+    <convexity>65.706383</convexity>
+  </CHARACTERISTICS>
+ </SP_DATA>
