@@ -1,22 +1,42 @@
-//create basi sector indexes chart
+//create S&p sector indexes chart
 function    sp_performance_chart() {
+
+    var htmlTitleText = '<a href="http://' + location.hostname +
+     '/research/s&p/index.php style="text-decoration: none">S&amp;P 500/MarketAxess Investment Grade Corporate Bond Index </a>';
+    var pathName = location.pathname; 
+    var htmlTitle = 
+    {
+        text: htmlTitleText,
+        style: {
+            color: '#4D759E'
+        },
+        align: 'center',
+        useHTML: 'true'
+    };
+    var theTitle = 
+    {
+        text: 'S&P 500/MarketAxess Investment Grade Corporate Bond Index',
+        style: {
+            color: '#4D759E'
+        },
+        align: 'center'
+    };
+    //create an html title if the chart is on the homepage 
+    if (pathName != "/research/s&p/index.php") theTitle = htmlTitle;
+
+    //find the proper file location 
+    var file = 'http://' + location.hostname + '/datafiles/widget_data/sp_values.csv';
     //var to catch any issues while getting data 
-    var jqxhr_basi = $.get('http://staging.marketaxess.com/research/s&p/SP_true_values.csv', function (data) {
+    var jqxhr_sp = $.get(file, function (data) {
         var options = {
             //chart options 
             chart: {
                 //set type of graph, where it renders
-                type: 'area',
+                type: 'line',
                 renderTo: 'sp_performance_container'
             },
             //set title of graph
-            title: {
-                text: 'S&P 500/MarketAxess Investment Grade Corporate Bond Index',
-                style: {
-                    color: '#4D759E'
-                },
-                align: 'center'
-            },
+            title: theTitle,
             //set xAxis title
             xAxis: {
                 title: {
@@ -30,7 +50,7 @@ function    sp_performance_chart() {
             //set yAxis info 
             yAxis: [{
                 title: {
-                    text: 'True Value',
+                    text: 'Index Value',
                     style: {
                         color: '#4D759E',
                         fontWeight: 'bold'
@@ -51,7 +71,7 @@ function    sp_performance_chart() {
             //stylize the tooltip 
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
-                valueDecimals: 4
+                valueDecimals: 2
             },
             //enable and stylize the legend
             legend: {
@@ -91,7 +111,7 @@ function    sp_performance_chart() {
             },
             //set name of chart downloads
             exporting: {
-                filename: 'MarketAxess_S&P_500/MarketAxess_Investment_Grade_Corporate_Bond_true_value',
+                filename: 'MarketAxess_S&P_500/MarketAxess_Investment_Grade_Corporate_Bond_Values',
                 //enable download icon
                 enabled: true,
                 //add image to download
@@ -129,6 +149,10 @@ function    sp_performance_chart() {
         readCSV(options, data, 1.0, names);
 
         var chart = new Highcharts.StockChart(options);
+
+        //update range to make chart look nicer
+        var extremes = chart.yAxis[0].getExtremes();
+        chart.yAxis[0].setExtremes(extremes.dataMin - 10, extremes.dataMax + 10);
     })
         //catch and display any errors 
         .fail(function (jqxhr_sp, exception) {
